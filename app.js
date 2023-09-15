@@ -7,6 +7,7 @@ var logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts')
 
 const systemConfig = require('./configs/system');
+const itemModel = require('./schemas/items');
 
 //connect mongoDB
 const mongoose = require('mongoose');
@@ -20,20 +21,10 @@ db.once('open', () => {
     console.log('connected');
 });
 
-var kittySchema = new mongoose.Schema({
-    name: String
+itemModel.find({ }, function(err, items){
+    
 });
 
-var Kitten = mongoose.model('Kitten', kittySchema);
-var silence = new Kitten({ name: 'Silence' });
-  
-silence.save(function (err, silence) {
-    if (err) return console.error(err);
-});
-
-
-
-  
 //   const Kitten = mongoose.model('Kitten', kittySchema);
 
 // var mysql = require('mysql');
