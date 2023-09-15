@@ -6,6 +6,49 @@ var logger = require('morgan');
 
 const expressLayouts = require('express-ejs-layouts')
 
+const systemConfig = require('./configs/system');
+
+//connect mongoDB
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://nodejs_learning:kimhoang123@cluster0.ziooixp.mongodb.net/', {useNewUrlParser: true, useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', () => {
+    console.log('connection error')
+});
+db.once('open', () => {
+    console.log('connected');
+});
+
+var kittySchema = new mongoose.Schema({
+    name: String
+});
+
+var Kitten = mongoose.model('Kitten', kittySchema);
+var silence = new Kitten({ name: 'Silence' });
+  
+silence.save(function (err, silence) {
+    if (err) return console.error(err);
+});
+
+
+
+  
+//   const Kitten = mongoose.model('Kitten', kittySchema);
+
+// var mysql = require('mysql');
+
+// var con = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "nodejs"
+//   });
+
+// con.connect(function(err) {
+// if (err) throw err;
+// console.log("Connected!!!")
+// });
 
 var app = express();
 
@@ -21,9 +64,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', require('./routes/admin/home'));
-app.use('/admin/dashboard', require('./routes/admin/dashboard'));
-app.use('/admin/items', require('./routes/admin/items'));
+
+//setup variable
+app.locals.systemConfig = systemConfig;
+
+//setup router
+app.use(`/${systemConfig.prefixAdmin}`, require('./routes/admin/index'));
+app.use('/', require('./routes/web/index'));
 
 
 // catch 404 and forward to error handler
@@ -39,7 +86,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('pages/error', { pageTitle:'ErrorPage' });
 });
 
 module.exports = app;
