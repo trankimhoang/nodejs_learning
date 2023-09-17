@@ -7,23 +7,38 @@ var logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts')
 
 const systemConfig = require('./configs/system');
-const itemModel = require('./schemas/items');
 
 //connect mongoDB
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://nodejs_learning:kimhoang123@cluster0.ziooixp.mongodb.net/', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://nodejs_learning:kimhoang123@cluster0.ziooixp.mongodb.net/project_nodejs', {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', () => {
     console.log('connection error')
 });
 db.once('open', () => {
-    console.log('connected');
+    // console.log('connected');
+
+    // var itemTest = new itemModel({name: "HoangNek", status: "0", odering: "1"});
+
+    // await itemTest.save();
+
+
+    // const data = await itemModel.find();
+
+    // console.log(data);
 });
 
-itemModel.find({ }, function(err, items){
+
+
+
+
+
+
+
+// itemModel.find({ }, function(err, items){
     
-});
+// });
 
 //   const Kitten = mongoose.model('Kitten', kittySchema);
 
