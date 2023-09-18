@@ -2,6 +2,45 @@
     <span class="close-btn">&times;</span> 
     Thay đổi Status thành công
 </div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Search & Filter
+                <a href="admin123/item">
+                <span id="icon-reload" class="glyphicon glyphicon-refresh"></span>
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="status-list col-sm-6 pl0">
+                        <% statusFilter.forEach(function(statusFilter, index) { %>
+                        <a class="btn m-b-sm btn-<%=statusFilter.class %> btn-sm" href="<%=systemConfig.prefixAdmin %>/items/<%= statusFilter.value %>">
+                            <%= statusFilter.name.toUpperCase() + " (" + statusFilter.count + ")" %>
+                        </a>
+                        <% }) %>
+                    </div>
+                    <div class="col-sm-6">
+                        <form action="admin123/item/all" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Search for..." value="">
+                                <input type="hidden" value="all">
+                                <span class="input-group-btn">
+                                <button class="btn btn-info" type="submit">Search</button>
+                                </span>
+                                <span class="input-group-btn">
+                                <button class="btn btn-success" type="button"><a href="admin123/group/all">Clear</a></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-info">
@@ -61,15 +100,15 @@
                                             <%= item.name %>
                                         </td>
                                         <td>
-                                            <% if(item.status == 1) { %> 
+                                            <% if(item.status === 'active') { %> 
                                                 <a href="">
 
                                                 <span class="label label-success">Active</span>
                                                 </a>
-                                            <% } else if(item.status == 0) { %>
+                                            <% } else if(item.status === 'inactive') { %>
                                                 <a href="">
 
-                                                    <span class="label label-warning">Inactived</span>
+                                                    <span class="label label-warning">InActive</span>
                                                     </a>
                                             <% } %>
                                         </td>
