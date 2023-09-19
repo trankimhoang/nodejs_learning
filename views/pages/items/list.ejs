@@ -8,7 +8,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 Search & Filter
-                <a href="admin123/item">
+                <a href="<%=systemConfig.prefixAdmin %>/items/all">
                 <span id="icon-reload" class="glyphicon glyphicon-refresh"></span>
                 </a>
             </div>
@@ -22,15 +22,14 @@
                         <% }) %>
                     </div>
                     <div class="col-sm-6">
-                        <form action="admin123/item/all" method="GET">
+                        <form action="<%=systemConfig.prefixAdmin %>/items/<%= currentStatus %>" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Search for..." value="">
-                                <input type="hidden" value="all">
+                                <input type="text" class="form-control" name="search" placeholder="Search for..." value="<%= search %>">
                                 <span class="input-group-btn">
-                                <button class="btn btn-info" type="submit">Search</button>
+                                    <button class="btn btn-info" type="submit">Search</button>
                                 </span>
                                 <span class="input-group-btn">
-                                <button class="btn btn-success" type="button"><a href="admin123/group/all">Clear</a></button>
+                                    <a class="btn btn-success" type="button" href="<%=systemConfig.prefixAdmin %>/items/<%= currentStatus %>">Clear</a>
                                 </span>
                             </div>
                         </form>
